@@ -159,3 +159,17 @@ index 7e52ed2..7059cb0 100644
    g_assert_true (dev_class->features & FP_DEVICE_FEATURE_STORAGE_LIST);
    g_assert_false (dev_class->features & FP_DEVICE_FEATURE_STORAGE_DELETE);
    g_assert_true (dev_class->features & FP_DEVICE_FEATURE_STORAGE_CLEAR);
+diff --git a/tests/focaltech_moc-6553/custom.py b/tests/focaltech_moc-6553/custom.py
+index 4af32be..2da6e8d 100755
+--- a/tests/focaltech_moc-6553/custom.py
++++ b/tests/focaltech_moc-6553/custom.py
+@@ -56,2 +56,7 @@
+-print("Delete is a no-op here")
+-d.delete_print_sync(p)
++print("Delete is explicitly unsupported here")
++try:
++    d.delete_print_sync(p)
++except GLib.Error:
++    pass
++else:
++    raise AssertionError("delete unexpectedly succeeded")

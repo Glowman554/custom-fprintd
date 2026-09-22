@@ -9,6 +9,8 @@ test -s LICENSE
 test -s .github/workflows/ci.yml
 
 yq . .github/workflows/ci.yml >/dev/null
+yq -e '.jobs.checks.steps[] | select(.run == "bash tests/package-contract.sh")' \
+  .github/workflows/ci.yml >/dev/null
 shellcheck tests/*.sh
 
 nix flake check --print-build-logs

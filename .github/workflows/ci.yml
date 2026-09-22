@@ -26,3 +26,6 @@ jobs:
 
       - name: Build packages
         run: nix build --no-link .#libfprint-elanmoc2 .#fprintd-elanmoc2
+
+      - name: Verify package contract
+        run: bash tests/package-contract.sh

@@ -157,7 +157,8 @@ $ bash tests/package-contract.sh
 $ bash tests/module-contract.sh
 ```
 
-CI runs the same flake checks and explicit package builds on `x86_64-linux`.
+CI runs the same flake checks, explicit package builds, and package contract on
+`x86_64-linux`.
 A virtual machine cannot emulate the physical USB fingerprint protocol, so the
 laptop acceptance steps remain manual.
 

@@ -2,6 +2,7 @@
   fetchzip,
   fprintd,
   libfprint,
+  umockdev,
 }:
 
 let
@@ -26,7 +27,11 @@ let
       cp -R --no-preserve=mode \
         ${driverSource}/tests/elanmoc2 \
         tests/elanmoc2
+      cp ${../tests/fixtures/elanmoc2-clear-storage.py} \
+        tests/elanmoc2/custom.py
     '';
+
+    nativeInstallCheckInputs = (old.nativeInstallCheckInputs or [ ]) ++ [ umockdev ];
 
     meta = old.meta // {
       description = "libfprint with the experimental ELAN Match-on-Chip 2 driver";

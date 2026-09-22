@@ -18,4 +18,12 @@ done
 test "$default_out" = "$fprintd_out"
 nix-store --query --references "$fprintd_out" | grep -Fq "$libfprint_out"
 
-printf 'package contract: all five ELAN MoC2 IDs and scoped fprintd dependency verified\n'
+libfprint_drv=$(nix-store --query --deriver "$libfprint_out")
+build_log=$(nix log "$libfprint_drv" 2>&1)
+grep -Eq 'libfprint:elanmoc2[[:space:]]+OK' <<<"$build_log"
+if grep -Eq 'libfprint:elanmoc2[[:space:]]+SKIP' <<<"$build_log"; then
+  printf 'package contract: ELAN MoC2 replay test was skipped\n' >&2
+  exit 1
+fi
+
+printf 'package contract: all five ELAN MoC2 IDs, replay test, and scoped fprintd dependency verified\n'
