@@ -17,3 +17,5 @@ done
 
 test "$default_out" = "$fprintd_out"
 nix-store --query --references "$fprintd_out" | grep -Fq "$libfprint_out"
+
+printf 'package contract: all five ELAN MoC2 IDs and scoped fprintd dependency verified\n'
