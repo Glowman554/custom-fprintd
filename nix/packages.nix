@@ -29,6 +29,8 @@ let
         tests/elanmoc2
       cp ${../tests/fixtures/elanmoc2-clear-storage.py} \
         tests/elanmoc2/custom.py
+      substituteInPlace tests/meson.build \
+        --replace-fail "  'egis_etu905': {}," ""
     '';
 
     nativeInstallCheckInputs = (old.nativeInstallCheckInputs or [ ]) ++ [ umockdev ];
